@@ -13,6 +13,7 @@ examples:
 - golang.org/x/sys v0.11.0
 - cloud.google.com/go/storage v1.30.1
 ## There is a provided example `modules.txt` file in this repository
+
 Tools needed to make this script work:
 - go
 - pacmod
