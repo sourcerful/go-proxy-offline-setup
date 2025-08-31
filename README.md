@@ -24,3 +24,5 @@ Tools needed to make this script work:
 Usage: 
 ./fetch_modules.sh modules.txt 
 
+© 2025 Shon Bazov
+All rights reserved
