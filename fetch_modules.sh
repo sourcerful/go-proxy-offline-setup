@@ -67,6 +67,11 @@ for modver in "${MODULES[@]}"; do
   if [[ -f "$target/$VERSION.zip" ]]; then
     mv "$target/$VERSION.zip" "$target/source.zip"
   fi
+  
+  # Rename .mod to go.mod
+  if [[ -f "$target/$VERSION.mod" ]]; then
+    mv "$target/$VERSION.mod" "$target/go.mod"
+  fi
 done
 
 echo "Zipping $OUTPUT_DIR into $OUTPUT_ZIP..."
