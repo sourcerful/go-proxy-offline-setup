@@ -1,5 +1,7 @@
 This script packs packages listed in a modules.txt file into a single .zip file that athens can work with.
 
+Works only on linux.
+
 Make sure modules.txt has the packages you want listed there with versions.
 right format is "<module>@<version>"
 examples:
@@ -20,6 +22,8 @@ Tools needed to make this script work:
 - jq
 - zip
 - unzip
+
+make sure the files are with Unix newline, if not, use "dos2unix" on fetch_modules.sh and modules.txt, else it won't work.
 
 Usage: 
 ./fetch_modules.sh modules.txt 
