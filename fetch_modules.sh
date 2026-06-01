@@ -3,7 +3,8 @@ set -euo pipefail
 
 MODULES_FILE="${1:-modules.txt}"
 OUTPUT_DIR="athens-storage"
-OUTPUT_ZIP="athens-storage.zip"
+# 1. Changed extension to .tgz
+OUTPUT_TGZ="athens-storage.tgz" 
 TMP_ROOT="$(mktemp -d)"
 GOMODCACHE="$TMP_ROOT/gocache"
 PACMOD_BIN="${PACMOD_BIN:-pacmod}"
@@ -15,7 +16,8 @@ fi
 echo "Reading module list from $MODULES_FILE..."
 
 # Cleanup previous output
-rm -rf "$OUTPUT_DIR" "$OUTPUT_ZIP"
+# 2. Updated cleanup variable
+rm -rf "$OUTPUT_DIR" "$OUTPUT_TGZ"
 mkdir -p "$OUTPUT_DIR"
 
 declare -a MODULES
@@ -81,11 +83,12 @@ for modver in "${MODULES[@]}"; do
   fi
 done
 
-echo "Zipping $OUTPUT_DIR into $OUTPUT_ZIP..."
-zip -qr "$OUTPUT_ZIP" "$OUTPUT_DIR"
+# 3. Replaced 'zip' with 'tar'
+echo "Compressing $OUTPUT_DIR into $OUTPUT_TGZ..."
+tar -czf "$OUTPUT_TGZ" "$OUTPUT_DIR"
 
 echo "Cleaning up temporary files..."
 rm -rf "$TMP_ROOT"
 
-echo "✅ Done! Output saved to: $OUTPUT_DIR and $OUTPUT_ZIP"
-
+# 4. Updated final print statement
+echo "✅ Done! Output saved to: $OUTPUT_DIR and $OUTPUT_TGZ"
