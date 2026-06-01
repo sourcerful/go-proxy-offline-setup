@@ -8,6 +8,10 @@ TMP_ROOT="$(mktemp -d)"
 GOMODCACHE="$TMP_ROOT/gocache"
 PACMOD_BIN="${PACMOD_BIN:-pacmod}"
 
+if command -v cygpath >/dev/null 2>&1; then
+    GOMODCACHE="$(cygpath -w "$GOMODCACHE")"
+fi
+
 echo "Reading module list from $MODULES_FILE..."
 
 # Cleanup previous output
@@ -38,12 +42,11 @@ for modver in "${MODULES[@]}"; do
   echo "Downloading $mod@$ver..."
 
   export GOMODCACHE
-
   meta=$(go mod download -json "$modver") || {
     echo "❌ Failed to download $modver"
     continue
   }
-
+  
   moddir=$(echo "$meta" | jq -r '.Dir')
   if [[ "$moddir" == "null" || ! -d "$moddir" ]]; then
     echo "❌ Module directory not found for $modver"
@@ -52,6 +55,10 @@ for modver in "${MODULES[@]}"; do
 
   export VERSION="$ver"
   target="$(pwd)/$OUTPUT_DIR/$mod/$ver"
+  # If running in Git Bash on Windows, convert target to a true Windows path for pacmod
+  if command -v cygpath >/dev/null 2>&1; then
+      target="$(cygpath -w "$target")"
+  fi
   mkdir -p "$target"
 
   echo "Packing $mod@$ver using pacmod..."
