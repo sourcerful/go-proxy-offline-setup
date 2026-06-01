@@ -2,8 +2,8 @@
 set -euo pipefail
 
 MODULES_FILE="${1:-modules.txt}"
-OUTPUT_DIR="output"
-OUTPUT_ZIP="output.zip"
+OUTPUT_DIR="athens-storage"
+OUTPUT_ZIP="athens-storage.zip"
 TMP_ROOT="$(mktemp -d)"
 GOMODCACHE="$TMP_ROOT/gocache"
 PACMOD_BIN="${PACMOD_BIN:-pacmod}"
